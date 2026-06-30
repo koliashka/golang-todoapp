@@ -14,7 +14,7 @@ env-cleanup:
 	@read -p "eboshim? [y/N]: " ans; \
 	if [ "$$ans" = "y" ]; then \
 		docker compose down && \
-		rm -rf out/pgdata && \
+		rm -rf ${PROJECT_ROOT}/out/pgdata && \
 		echo "Vse pohereli"; \
 	else \
 		echo "fuf"; \
@@ -45,3 +45,9 @@ migrate-action:
 		-path /migrations \
 		-database postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@todoapp-postgres:5432/${POSTGRES_DB}?sslmode=disable \
 		"${action}"
+
+todoapp-run:
+	export LOGGER_FOLDER=${PROJECT_ROOT}/out/log && \
+	export POSTGRES_HOST=localhost && \
+	go mod tidy && \
+	go run ${PROJECT_ROOT}/cmd/todoapp/main.go

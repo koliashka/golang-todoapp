@@ -14,7 +14,7 @@ env-cleanup:
 	@read -p "eboshim? [y/N]: " ans; \
 	if [ "$$ans" = "y" ]; then \
 		docker compose down && \
-		rm -rf out/pgdata && \
+		rm -rf ${PROJECT_ROOT}/out/pgdata && \
 		echo "Vse pohereli"; \
 	else \
 		echo "fuf"; \
@@ -50,4 +50,4 @@ todoapp-run:
 	export LOGGER_FOLDER=${PROJECT_ROOT}/out/log && \
 	export POSTGRES_HOST=localhost && \
 	go mod tidy && \
-	go run cmd/todoapp/main.go
+	go run ${PROJECT_ROOT}/cmd/todoapp/main.go
